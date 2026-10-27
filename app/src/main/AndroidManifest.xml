@@ -27,6 +27,9 @@
         <activity
             android:name=".ScoreActivity"
             android:exported="false" />
+        <activity
+            android:name=".ViewHintActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

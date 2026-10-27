@@ -11,10 +11,12 @@ public class Question {
     }
 
     public String getText() {
+
         return text;
     }
 
     public boolean getAnswer() {
+
         return answer;
     }
 }

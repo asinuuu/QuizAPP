@@ -61,6 +61,13 @@
                 android:text="False" />
         </LinearLayout>
 
+        <Button
+            android:id="@+id/hintButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Hint" />
+
         <TextView
             android:id="@+id/feedbackText"
             android:layout_width="match_parent"

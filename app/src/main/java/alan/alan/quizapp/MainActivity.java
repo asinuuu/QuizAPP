@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     boolean thinking = false;
 
     TextView scoreText, questionText, feedbackText;
-    Button trueButton, falseButton, nextButton, finishedButton, generateButton;
+    Button trueButton, falseButton, nextButton, finishedButton, generateButton, hintButton;
     EditText topicInput;
 
     @Override
@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         nextButton = findViewById(R.id.nextButton);
         finishedButton = findViewById(R.id.finishedButton);
         generateButton = findViewById(R.id.generateButton);
+        hintButton = findViewById(R.id.hintButton);
         topicInput = findViewById(R.id.topicInput);
 
         showQuestion();
@@ -89,6 +90,16 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, ScoreActivity.class);
                 intent.putExtra("score", score);
                 intent.putExtra("total", questionsAnswered);
+                startActivity(intent);
+            }
+        });
+
+        hintButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Explicit intent: we name the Activity we want to open
+                Intent intent = new Intent(MainActivity.this, ViewHintActivity.class);
+                intent.putExtra("hint", String.valueOf(currentAnswer));
                 startActivity(intent);
             }
         });
