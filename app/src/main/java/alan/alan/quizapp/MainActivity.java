@@ -17,17 +17,23 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
 
     Question[] questions = {
-            new Question("Android apps can be written in Java.", true),
-            new Question("A TextView is used to show text on the screen.", true),
-            new Question("The findViewById method deletes a view.", false),
-            new Question("A Toast is a small pop-up message.", true),
-            new Question("XML is used to build the layout of an app.", true)
+            new Question("Android apps can be written in Java.", true,
+                    "Think about which language you write your Android code in this class."),
+            new Question("A TextView is used to show text on the screen.", true,
+                    "Look at the word \"Text\" in the name."),
+            new Question("The findViewById method deletes a view.", false,
+                    "The word \"find\" is in the name. Would a method that finds something delete it?"),
+            new Question("A Toast is a small pop-up message.", true,
+                    "Think about the little message that pops up and disappears after you answer."),
+            new Question("XML is used to build the layout of an app.", true,
+                    "Look at the file activity_main.xml. What does it build?")
     };
 
     int currentQuestion = 0;
     int score = 0;
     int questionsAnswered = 0;
     boolean currentAnswer = true;
+    String currentHint = "";
     boolean alreadyAnswered = false;
     boolean thinking = false;
 
@@ -99,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Explicit intent: we name the Activity we want to open
                 Intent intent = new Intent(MainActivity.this, ViewHintActivity.class);
-                intent.putExtra("hint", String.valueOf(currentAnswer));
+                intent.putExtra("hint", currentHint);
                 startActivity(intent);
             }
         });
@@ -125,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 currentAnswer = answer;
+                                currentHint = "No hint for AI questions";
                                 alreadyAnswered = false;
                                 thinking = false;
                                 questionText.setText(statement);
@@ -155,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
     private void showQuestion() {
         questionText.setText(questions[currentQuestion].getText());
         currentAnswer = questions[currentQuestion].getAnswer();
+        currentHint = questions[currentQuestion].getHint();
         alreadyAnswered = false;
         feedbackText.setText("");
         updateButtons();
