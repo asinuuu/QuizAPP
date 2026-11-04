@@ -19,10 +19,10 @@ public class MainActivity extends AppCompatActivity {
     Question[] questions = {
             new Question("Android apps can be written in Java.", true,
                     "Think about which language you write your Android code in this class."),
-            new Question("A TextView is used to show text on the screen.", true,
-                    "Look at the word \"Text\" in the name."),
             new Question("The findViewById method deletes a view.", false,
                     "The word \"find\" is in the name. Would a method that finds something delete it?"),
+            new Question("A TextView is used to show text on the screen.", true,
+                    "Look at the word \"Text\" in the name."),
             new Question("A Toast is a small pop-up message.", true,
                     "Think about the little message that pops up and disappears after you answer."),
             new Question("XML is used to build the layout of an app.", true,
@@ -48,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            Insets keyboard = insets.getInsets(WindowInsetsCompat.Type.ime());
+            int bottom = Math.max(systemBars.bottom, keyboard.bottom);
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, bottom);
             return insets;
         });
 
