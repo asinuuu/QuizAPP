@@ -12,7 +12,7 @@
         android:id="@+id/finalScoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your score"
+        android:text="@string/your_score"
         android:textColor="#0D47A1"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Email my score"
+        android:text="@string/email_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/finalScoreText" />
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Play again"
+        android:text="@string/play_again_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emailButton" />

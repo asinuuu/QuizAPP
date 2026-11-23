@@ -1,3 +1,49 @@
 <resources>
     <string name="app_name">QuizAPP</string>
+
+    <string name="score">Score:</string>
+    <string name="score_start">Score: 0</string>
+    <string name="question_word">Question</string>
+    <string name="of_word">of</string>
+    <string name="progress_start">Question 1 of 5</string>
+    <string name="question_placeholder">Question goes here</string>
+    <string name="true_button">True</string>
+    <string name="false_button">False</string>
+    <string name="hint_button">Hint (lose the point)</string>
+    <string name="next_button">Next</string>
+    <string name="finished_button">Finished</string>
+    <string name="right">Right!</string>
+    <string name="wrong">Wrong!</string>
+    <string name="right_no_point">Right! No point for using the hint.</string>
+
+    <string name="q1_text">Android apps can be written in Java.</string>
+    <string name="q1_hint">Think about which language you write your Android code in this class.</string>
+    <string name="q2_text">The findViewById method deletes a view.</string>
+    <string name="q2_hint">The word \"find\" is in the name. Would a method that finds something delete it?</string>
+    <string name="q3_text">A TextView is used to show text on the screen.</string>
+    <string name="q3_hint">Look at the word \"Text\" in the name.</string>
+    <string name="q4_text">A Toast is a small pop-up message.</string>
+    <string name="q4_hint">Think about the little message that pops up and disappears after you answer.</string>
+    <string name="q5_text">XML is used to build the layout of an app.</string>
+    <string name="q5_hint">Look at the file activity_main.xml. What does it build?</string>
+
+    <string name="hint_title">Hint</string>
+    <string name="hint_label">Hint:</string>
+    <string name="back_button">Back to question</string>
+
+    <string name="your_score">Your score</string>
+    <string name="you_got">You got</string>
+    <string name="out_of">out of</string>
+    <string name="email_button">Email my score</string>
+    <string name="play_again_button">Play again</string>
+    <string name="email_subject">Quiz App Score</string>
+    <string name="i_scored">I scored</string>
+    <string name="no_email_app">No email app found</string>
+
+    <string name="ai_title">AI question maker</string>
+    <string name="ai_topic_hint">Type a topic, like pizza</string>
+    <string name="ai_button">Generate with AI</string>
+    <string name="ai_thinking">Thinking...</string>
+    <string name="ai_need_topic">Type a topic first</string>
+    <string name="ai_error">The AI could not make a question. Try again.</string>
 </resources>

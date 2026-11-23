@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">QuizAPP</string>
+
+    <string name="score">Puntos:</string>
+    <string name="score_start">Puntos: 0</string>
+    <string name="question_word">Pregunta</string>
+    <string name="of_word">de</string>
+    <string name="progress_start">Pregunta 1 de 5</string>
+    <string name="question_placeholder">Aquí va la pregunta</string>
+    <string name="true_button">Verdadero</string>
+    <string name="false_button">Falso</string>
+    <string name="hint_button">Pista (pierdes el punto)</string>
+    <string name="next_button">Siguiente</string>
+    <string name="finished_button">Terminar</string>
+    <string name="right">¡Correcto!</string>
+    <string name="wrong">¡Incorrecto!</string>
+    <string name="right_no_point">¡Correcto! Pero no hay punto por usar la pista.</string>
+
+    <string name="q1_text">Las apps de Android se pueden escribir en Java.</string>
+    <string name="q1_hint">Piensa en qué lenguaje escribes tu código de Android en esta clase.</string>
+    <string name="q2_text">El método findViewById borra una vista.</string>
+    <string name="q2_hint">La palabra \"find\" (encontrar) está en el nombre. ¿Un método que encuentra algo lo borraría?</string>
+    <string name="q3_text">Un TextView se usa para mostrar texto en la pantalla.</string>
+    <string name="q3_hint">Fíjate en la palabra \"Text\" (texto) en el nombre.</string>
+    <string name="q4_text">Un Toast es un pequeño mensaje emergente.</string>
+    <string name="q4_hint">Piensa en el mensajito que aparece y desaparece después de contestar.</string>
+    <string name="q5_text">XML se usa para construir el diseño de una app.</string>
+    <string name="q5_hint">Mira el archivo activity_main.xml. ¿Qué construye?</string>
+
+    <string name="hint_title">Pista</string>
+    <string name="hint_label">Pista:</string>
+    <string name="back_button">Volver a la pregunta</string>
+
+    <string name="your_score">Tu puntaje</string>
+    <string name="you_got">Sacaste</string>
+    <string name="out_of">de</string>
+    <string name="email_button">Enviar mi puntaje por correo</string>
+    <string name="play_again_button">Jugar otra vez</string>
+    <string name="email_subject">Puntaje del Quiz App</string>
+    <string name="i_scored">Saqué</string>
+    <string name="no_email_app">No se encontró una app de correo</string>
+
+    <string name="ai_title">Creador de preguntas con IA</string>
+    <string name="ai_topic_hint">Escribe un tema, como pizza</string>
+    <string name="ai_button">Generar con IA</string>
+    <string name="ai_thinking">Pensando...</string>
+    <string name="ai_need_topic">Primero escribe un tema</string>
+    <string name="ai_error">La IA no pudo crear una pregunta. Inténtalo otra vez.</string>
+</resources>

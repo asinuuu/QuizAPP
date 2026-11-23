@@ -35,25 +35,25 @@ public class ScoreActivity extends AppCompatActivity {
         emailButton = findViewById(R.id.emailButton);
         playAgainButton = findViewById(R.id.playAgainButton);
 
-        // Read the score and the number of questions answered that MainActivity sent us
         final int score = getIntent().getIntExtra("score", 0);
         final int total = getIntent().getIntExtra("total", 0);
-        finalScoreText.setText("You got " + score + " out of " + total);
+        finalScoreText.setText(getString(R.string.you_got) + " " + score + " "
+                + getString(R.string.out_of) + " " + total);
 
         emailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Implicit intent: we only say "send an email", Android picks the email app
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
                 emailIntent.setData(Uri.parse("mailto:"));
                 emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"arriazaalan7@gmail.com"});
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Quiz App Score");
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "I scored " + score + " out of " + total);
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.email_subject));
+                emailIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.i_scored) + " " + score + " "
+                        + getString(R.string.out_of) + " " + total);
 
                 try {
                     startActivity(emailIntent);
                 } catch (ActivityNotFoundException e) {
-                    Toast.makeText(ScoreActivity.this, "No email app found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ScoreActivity.this, getString(R.string.no_email_app), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -61,7 +61,6 @@ public class ScoreActivity extends AppCompatActivity {
         playAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start a brand new quiz, then close the score screen
                 Intent intent = new Intent(ScoreActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();

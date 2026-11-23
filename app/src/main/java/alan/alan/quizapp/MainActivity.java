@@ -16,18 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    Question[] questions = {
-            new Question("Android apps can be written in Java.", true,
-                    "Think about which language you write your Android code in this class."),
-            new Question("The findViewById method deletes a view.", false,
-                    "The word \"find\" is in the name. Would a method that finds something delete it?"),
-            new Question("A TextView is used to show text on the screen.", true,
-                    "Look at the word \"Text\" in the name."),
-            new Question("A Toast is a small pop-up message.", true,
-                    "Think about the little message that pops up and disappears after you answer."),
-            new Question("XML is used to build the layout of an app.", true,
-                    "Look at the file activity_main.xml. What does it build?")
-    };
+    Question[] questions;
 
     int currentQuestion = 0;
     int score = 0;
@@ -36,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     String currentHint = "";
     boolean alreadyAnswered = false;
     boolean thinking = false;
+    boolean usedHint = false;
 
     TextView scoreText, questionText, feedbackText, progressText;
     Button trueButton, falseButton, nextButton, finishedButton, generateButton, hintButton;
@@ -53,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, bottom);
             return insets;
         });
+
+        questions = new Question[] {
+                new Question(getString(R.string.q1_text), true, getString(R.string.q1_hint)),
+                new Question(getString(R.string.q2_text), false, getString(R.string.q2_hint)),
+                new Question(getString(R.string.q3_text), true, getString(R.string.q3_hint)),
+                new Question(getString(R.string.q4_text), true, getString(R.string.q4_hint)),
+                new Question(getString(R.string.q5_text), true, getString(R.string.q5_hint))
+        };
 
         scoreText = findViewById(R.id.scoreText);
         questionText = findViewById(R.id.questionText);
@@ -85,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Only move on if this is not the last question
                 if (currentQuestion < questions.length - 1) {
                     currentQuestion = currentQuestion + 1;
                     showQuestion();
@@ -100,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("score", score);
                 intent.putExtra("total", questionsAnswered);
                 startActivity(intent);
-                // Close the quiz so Back on the score screen doesn't return to the old quiz
                 finish();
             }
         });
@@ -108,7 +104,9 @@ public class MainActivity extends AppCompatActivity {
         hintButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Explicit intent: we name the Activity we want to open
+                if (!alreadyAnswered) {
+                    usedHint = true;
+                }
                 Intent intent = new Intent(MainActivity.this, ViewHintActivity.class);
                 intent.putExtra("hint", currentHint);
                 startActivity(intent);
@@ -120,10 +118,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String topic = topicInput.getText().toString().trim();
                 if (topic.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Type a topic first", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, getString(R.string.ai_need_topic), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                questionText.setText("Thinking...");
+                questionText.setText(getString(R.string.ai_thinking));
                 feedbackText.setText("");
                 thinking = true;
                 updateButtons();
@@ -131,15 +129,16 @@ public class MainActivity extends AppCompatActivity {
                 QuestionGenerator.generate(topic, new QuestionGenerator.Listener() {
                     @Override
                     public void onQuestion(final String statement, final boolean answer) {
-                        // This runs on a background thread, so hop back to the screen thread
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 currentAnswer = answer;
-                                currentHint = "No hint for AI questions";
+                                currentHint = "";
                                 alreadyAnswered = false;
+                                usedHint = false;
                                 thinking = false;
                                 questionText.setText(statement);
+                                hintButton.setEnabled(false);
                                 updateButtons();
                             }
                         });
@@ -150,11 +149,10 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                // Nothing to answer now, so let the user move on instead of scoring an old answer
                                 alreadyAnswered = true;
                                 thinking = false;
-                                questionText.setText(message);
-                                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                                questionText.setText(getString(R.string.ai_error));
+                                Toast.makeText(MainActivity.this, getString(R.string.ai_error), Toast.LENGTH_SHORT).show();
                                 updateButtons();
                             }
                         });
@@ -168,9 +166,12 @@ public class MainActivity extends AppCompatActivity {
         questionText.setText(questions[currentQuestion].getText());
         currentAnswer = questions[currentQuestion].getAnswer();
         currentHint = questions[currentQuestion].getHint();
-        progressText.setText("Question " + (currentQuestion + 1) + " of " + questions.length);
+        progressText.setText(getString(R.string.question_word) + " " + (currentQuestion + 1) + " "
+                + getString(R.string.of_word) + " " + questions.length);
         alreadyAnswered = false;
+        usedHint = false;
         feedbackText.setText("");
+        hintButton.setEnabled(true);
         updateButtons();
     }
 
@@ -183,7 +184,6 @@ public class MainActivity extends AppCompatActivity {
         finishedButton.setEnabled(canMoveOn);
         generateButton.setEnabled(canMoveOn);
 
-        // On the last question, swap Next for Finished
         if (currentQuestion == questions.length - 1) {
             nextButton.setVisibility(View.GONE);
             finishedButton.setVisibility(View.VISIBLE);
@@ -201,14 +201,18 @@ public class MainActivity extends AppCompatActivity {
         questionsAnswered = questionsAnswered + 1;
 
         if (userSaidTrue == currentAnswer) {
-            score = score + 1;
-            feedbackText.setText("Right!");
-            Toast.makeText(MainActivity.this, "Right!", Toast.LENGTH_SHORT).show();
+            if (usedHint) {
+                feedbackText.setText(getString(R.string.right_no_point));
+            } else {
+                score = score + 1;
+                feedbackText.setText(getString(R.string.right));
+            }
+            Toast.makeText(MainActivity.this, getString(R.string.right), Toast.LENGTH_SHORT).show();
         } else {
-            feedbackText.setText("Wrong!");
-            Toast.makeText(MainActivity.this, "Wrong!", Toast.LENGTH_SHORT).show();
+            feedbackText.setText(getString(R.string.wrong));
+            Toast.makeText(MainActivity.this, getString(R.string.wrong), Toast.LENGTH_SHORT).show();
         }
-        scoreText.setText("Score: " + score);
+        scoreText.setText(getString(R.string.score) + " " + score);
         updateButtons();
     }
 }

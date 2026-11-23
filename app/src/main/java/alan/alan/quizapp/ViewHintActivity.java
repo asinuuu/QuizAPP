@@ -30,14 +30,12 @@ public class ViewHintActivity extends AppCompatActivity {
         hintText = findViewById(R.id.hintText);
         backButton = findViewById(R.id.backButton);
 
-        // Read the hint that MainActivity packed with the key "hint"
         String hint = getIntent().getStringExtra("hint");
-        hintText.setText("Hint: " + hint);
+        hintText.setText(getString(R.string.hint_label) + " " + hint);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // finish() closes this screen and returns to the question where we left off
                 finish();
             }
         });
