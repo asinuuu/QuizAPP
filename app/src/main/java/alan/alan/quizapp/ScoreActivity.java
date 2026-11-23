@@ -18,7 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class ScoreActivity extends AppCompatActivity {
 
     TextView finalScoreText;
-    Button emailButton;
+    Button emailButton, playAgainButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,7 @@ public class ScoreActivity extends AppCompatActivity {
 
         finalScoreText = findViewById(R.id.finalScoreText);
         emailButton = findViewById(R.id.emailButton);
+        playAgainButton = findViewById(R.id.playAgainButton);
 
         // Read the score and the number of questions answered that MainActivity sent us
         final int score = getIntent().getIntExtra("score", 0);
@@ -54,6 +55,16 @@ public class ScoreActivity extends AppCompatActivity {
                 } catch (ActivityNotFoundException e) {
                     Toast.makeText(ScoreActivity.this, "No email app found", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        playAgainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start a brand new quiz, then close the score screen
+                Intent intent = new Intent(ScoreActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

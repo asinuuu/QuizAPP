@@ -25,14 +25,30 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <TextView
-            android:id="@+id/scoreText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="Score: 0"
-            android:textColor="#0D47A1"
-            android:textSize="18sp" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/progressText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Question 1 of 5"
+                android:textColor="#0D47A1"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/scoreText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="Score: 0"
+                android:textColor="#0D47A1"
+                android:textSize="18sp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/questionText"
@@ -95,7 +111,6 @@
                 android:id="@+id/nextButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:text="Next" />
 
@@ -103,9 +118,9 @@
                 android:id="@+id/finishedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:text="Finished" />
+                android:text="Finished"
+                android:visibility="gone" />
         </LinearLayout>
 
         <TextView

@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     boolean alreadyAnswered = false;
     boolean thinking = false;
 
-    TextView scoreText, questionText, feedbackText;
+    TextView scoreText, questionText, feedbackText, progressText;
     Button trueButton, falseButton, nextButton, finishedButton, generateButton, hintButton;
     EditText topicInput;
 
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         scoreText = findViewById(R.id.scoreText);
         questionText = findViewById(R.id.questionText);
         feedbackText = findViewById(R.id.feedbackText);
+        progressText = findViewById(R.id.progressText);
         trueButton = findViewById(R.id.trueButton);
         falseButton = findViewById(R.id.falseButton);
         nextButton = findViewById(R.id.nextButton);
@@ -84,11 +85,11 @@ public class MainActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentQuestion = currentQuestion + 1;
-                if (currentQuestion >= questions.length) {
-                    currentQuestion = 0;
+                // Only move on if this is not the last question
+                if (currentQuestion < questions.length - 1) {
+                    currentQuestion = currentQuestion + 1;
+                    showQuestion();
                 }
-                showQuestion();
             }
         });
 
@@ -99,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("score", score);
                 intent.putExtra("total", questionsAnswered);
                 startActivity(intent);
+                // Close the quiz so Back on the score screen doesn't return to the old quiz
+                finish();
             }
         });
 
@@ -165,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
         questionText.setText(questions[currentQuestion].getText());
         currentAnswer = questions[currentQuestion].getAnswer();
         currentHint = questions[currentQuestion].getHint();
+        progressText.setText("Question " + (currentQuestion + 1) + " of " + questions.length);
         alreadyAnswered = false;
         feedbackText.setText("");
         updateButtons();
@@ -178,6 +182,15 @@ public class MainActivity extends AppCompatActivity {
         nextButton.setEnabled(canMoveOn);
         finishedButton.setEnabled(canMoveOn);
         generateButton.setEnabled(canMoveOn);
+
+        // On the last question, swap Next for Finished
+        if (currentQuestion == questions.length - 1) {
+            nextButton.setVisibility(View.GONE);
+            finishedButton.setVisibility(View.VISIBLE);
+        } else {
+            nextButton.setVisibility(View.VISIBLE);
+            finishedButton.setVisibility(View.GONE);
+        }
     }
 
     private void checkAnswer(boolean userSaidTrue) {
